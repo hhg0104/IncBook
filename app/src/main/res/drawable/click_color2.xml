@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- not selected has transparent color -->
+    <item android:state_pressed="false" android:state_selected="false">
+        <color android:color="#ababab"/>
+    </item>
+
+    <item android:state_pressed="true">
+        <color android:color="#c6e2ff"/>
+    </item>
+</selector>

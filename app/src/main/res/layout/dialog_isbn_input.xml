@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+
+    <EditText
+        android:id="@+id/input_isbn"
+        android:inputType="number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:ems="7"
+        android:textSize="25sp"
+        android:maxLength="13"/>
+
+    <TextView
+        android:id="@+id/input_isbn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_isbn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="확인"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/click_color2"/>
+
+</RelativeLayout>

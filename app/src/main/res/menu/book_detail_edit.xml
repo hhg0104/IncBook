@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".BookDetailActivity">
+
+    <item
+        android:id="@+id/book_edit_ok"
+        android:icon="@drawable/edit_confirm"
+        android:showAsAction="always"
+        android:title="@string/book_edit_ok"
+        />
+
+</menu>
