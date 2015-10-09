@@ -5,6 +5,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -103,7 +105,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             }
         }, getApplicationContext());
 
-        conn.execute(HttpAction.GET_BOOKS);
+        if (Build.VERSION.SDK_INT >= 11) {
+            conn.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, HttpAction.GET_BOOKS);
+        } else {
+            conn.execute(HttpAction.GET_BOOKS);
+        }
     }
 
     private void initServerConfiguration() {
@@ -310,19 +316,4 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
     }
 
-//    private List<BookInfo> getTestBookData() {
-//        List<BookInfo> books = new ArrayList<BookInfo>();
-//        books.add(new BookInfo("일탈", "게일 루빈", "현실문화연구", "당신이 무지했던 성적 자유의 영역을 놀랍게도 확장시킬 역저성 인류학의 선구자 게일루빈이...", "창고", "http://bookthumb.phinf.naver.net/cover/001/296/00129645.jpg?type=m1&udate=20130629"));
-//        books.add(new BookInfo("나의 문화유산답사기", "유홍준", "창비", "서울에서 2시간, 가을에 만나는 남한강의 매력!", "연구실", "http://bookthumb.phinf.naver.net/cover/001/296/00129645.jpg?type=m1&udate=20130629"));
-//        books.add(new BookInfo("청진기가 사라진 이후", "에릭 토폴", "청년의사", "\"의료의 미래가 당신의 손 안에 들어와 있다.\"", "휴게실", StringConstants.EMPTY));
-//        books.add(new BookInfo("사랑을 더 풍성하게 하라", "화종부", "두란노", "예수를 믿고 달라진 게 아무것도 없어도 확실할 수 있는 것은...", "회의실", "http://bookthumb.phinf.naver.net/cover/001/296/00129645.jpg?type=m1&udate=20130629"));
-//        books.add(new BookInfo("성격심리학", "김완일,김옥란", "학지사", "이 책은 성격의 대표적인 이록들이 출현하게 된 배경을 이해하는데 초점을 두었으며...", "창고", "http://bookthumb.phinf.naver.net/cover/001/296/00129645.jpg?type=m1&udate=20130629"));
-//        books.add(new BookInfo("현실에의 철학적 접근", "김형효", "소나무", "서양과 동양과 한국, 고대와 중세와 현대를 넘아들었던 그의 철학 순례길을 따라가다 보면...", "연구실", StringConstants.EMPTY));
-//        books.add(new BookInfo("골목길 근대사", "최석호,박종인,이길용", "시루", "골목길에서 만나는 근대사는 어떤 모습으로 변해 있을까?", "회의실", "http://bookthumb.phinf.naver.net/cover/001/296/00129645.jpg?type=m1&udate=20130629"));
-//        books.add(new BookInfo("직장인 팔로워십", "김해원", "책과나무", "어떻게 팔로워십을 발휘하는 것이 가장 이상적인가?", "휴게실", "http://bookthumb.phinf.naver.net/cover/001/296/00129645.jpg?type=m1&udate=20130629"));
-//        books.add(new BookInfo("꼬마 영화감독 샬롯", "프랭크 비바", "주니어RHK", "너만의 예술적 재능을 마음껏 펼쳐보렴!", "한형근", "http://bookthumb.phinf.naver.net/cover/001/296/00129645.jpg?type=m1&udate=20130629"));
-//        books.add(new BookInfo("그래픽디자이너들", "유정미", "홍디자인", "엘 리시츠키부터 데이비드 카슨까지, 세기의 디자이너 20인의 발자취를 쫓다.", "연구실", StringConstants.EMPTY));
-//
-//        return books;
-//    }
 }

@@ -13,24 +13,24 @@ import java.net.URL;
  */
 public class HttpConnector {
 
-    public static String post(String address, String requestJson) throws InvalidResponseException {
+    public String post(String address, String requestJson) throws InvalidResponseException {
         return send(address, requestJson, HttpMethod.POST);
     }
 
-    public static String get(String address) throws InvalidResponseException {
+    public String get(String address) throws InvalidResponseException {
         return send(address, null, HttpMethod.GET);
     }
 
-    public static String delete(String address) throws InvalidResponseException {
+    public String delete(String address) throws InvalidResponseException {
         return send(address, null, HttpMethod.DELETE);
     }
 
-    public static String put(String address, String requestJson) throws InvalidResponseException {
+    public String put(String address, String requestJson) throws InvalidResponseException {
         return send(address, requestJson, HttpMethod.PUT);
     }
 
 
-    private static String send(String address, String requestJson, HttpMethod method) throws InvalidResponseException {
+    private String send(String address, String requestJson, HttpMethod method) throws InvalidResponseException {
 
         HttpURLConnection conn = null;
         InputStream in = null;
@@ -43,7 +43,7 @@ public class HttpConnector {
             if (conn == null) {
 
             }
-
+            conn.setConnectTimeout(5000);
             conn.setRequestMethod(method.toString());
 
             if (requestJson != null) {
@@ -62,7 +62,7 @@ public class HttpConnector {
             return readResponse(in);
 
         } catch (IOException e) {
-            throw new InvalidResponseException(e.getMessage(), 500);
+            throw new InvalidResponseException("서버를 확인해주십시오.", 500);
         } finally {
             if (in != null) {
                 try {
@@ -75,7 +75,7 @@ public class HttpConnector {
     }
 
 
-    private static String readResponse(InputStream is) throws InvalidResponseException {
+    private String readResponse(InputStream is) throws InvalidResponseException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int length = 0;

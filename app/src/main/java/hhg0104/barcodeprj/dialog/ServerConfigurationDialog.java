@@ -50,45 +50,6 @@ public class ServerConfigurationDialog extends Dialog implements View.OnClickLis
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
-//        hostInput.addTextChangedListener(new TextWatcher() {
-//
-//            public String beforeText;
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                beforeText = hostInput.getText().toString();
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                String text = s.toString();
-//                int textLength = text.length();
-//
-//                if (textLength < 3) {
-//                    return;
-//                }
-//
-//                if (beforeText.length() > textLength) {
-//                    return;
-//                }
-//
-//                int[] periodIndex = {3, 7, 9};
-//
-//                for (int index : periodIndex) {
-//                    if (textLength == index) {
-//                        hostInput.setText(text + StringConstants.PERIOD);
-//                        hostInput.setSelection(textLength + 1);
-//                    }
-//                }
-//            }
-//        });
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
         TextView okBtn = (TextView) findViewById(R.id.input_server_ok);
         okBtn.setOnClickListener(this);
     }
