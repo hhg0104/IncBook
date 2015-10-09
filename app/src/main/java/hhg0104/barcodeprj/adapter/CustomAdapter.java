@@ -64,10 +64,10 @@ public class CustomAdapter extends BaseAdapter {
 
         BookInfo book = books.get(i);
 
-        holder.title.setText(book.getTitle());
+        holder.title.setText(book.getBookTitle());
         holder.author.setText(book.getAuthor());
         holder.publisher.setText(book.getPublisher());
-        holder.location.setText(book.getLocation());
+        holder.location.setText(book.getCurrentLocation());
 
         DrawableManager imgManager = DrawableManager.getInstance();
         imgManager.fetchDrawableOnThread(book.getImagePath(), holder.image);

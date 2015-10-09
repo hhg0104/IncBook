@@ -79,7 +79,7 @@ public class HttpBookSearchConnector {
                     if ("title".equalsIgnoreCase(name)) {
                         eventType = xpp.next();
                         if (eventType == XmlPullParser.TEXT) {
-                            bookInfo.setTitle(xpp.getText().trim());
+                            bookInfo.setBookTitle(xpp.getText().trim());
                         }
                     }
 

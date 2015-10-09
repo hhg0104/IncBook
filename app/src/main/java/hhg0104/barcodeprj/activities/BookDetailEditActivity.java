@@ -54,20 +54,24 @@ public class BookDetailEditActivity extends Activity {
 
         thisActivity = this;
 
+        EditText callNoView = (EditText) findViewById(R.id.call_no);
+        EditText regNoView = (EditText) findViewById(R.id.reg_no);
         EditText titleView = (EditText) findViewById(R.id.book_title);
         EditText authorView = (EditText) findViewById(R.id.book_author);
         EditText publisherView = (EditText) findViewById(R.id.book_publisher);
         EditText descView = (EditText) findViewById(R.id.book_description);
-        EditText locationView = (EditText) findViewById(R.id.book_location);
+        EditText originLocationView = (EditText) findViewById(R.id.book_origin_location);
+        EditText currentLocationView = (EditText) findViewById(R.id.book_current_location);
 
         // 기본 설정을 한다. 키보드 엔터 기능 제거, EditText 필드 Enable
-        configDefaultSetting(titleView, authorView, publisherView, descView, locationView);
+        configDefaultSetting(callNoView, regNoView, titleView, authorView, publisherView, descView, originLocationView, currentLocationView);
+
 
         // Barcode, ISBN, 기본 정보 수정 시, 필요한 정보를 미리 입력한다.
-        setValueToEditTextField(titleView, authorView, publisherView, descView, locationView);
+        setValueToEditTextField(callNoView, regNoView, titleView, authorView, publisherView, descView, originLocationView, currentLocationView);
     }
 
-    private void setValueToEditTextField(EditText titleView, EditText authorView, EditText publisherView, EditText descView, EditText locationView) {
+    private void setValueToEditTextField(EditText callNoView, EditText regNoView, EditText titleView, EditText authorView, EditText publisherView, EditText descView, EditText originLocationView, EditText currentLocationView) {
 
         Intent detailIntent = getIntent();
         Bundle extras = detailIntent.getExtras();
@@ -84,15 +88,18 @@ public class BookDetailEditActivity extends Activity {
 
             BookInfo bookInfo = extras.getParcelable(IntentExtraEntry.BOOK_INFO);
 
-            titleView.setText(bookInfo.getTitle());
+            callNoView.setText(bookInfo.getCallNo());
+            regNoView.setText(bookInfo.getRegNo());
+            titleView.setText(bookInfo.getBookTitle());
             authorView.setText(bookInfo.getAuthor());
             publisherView.setText(bookInfo.getPublisher());
             descView.setText(bookInfo.getDescription());
-            locationView.setText(bookInfo.getLocation());
+            originLocationView.setText(bookInfo.getOriginLocation());
+            currentLocationView.setText(bookInfo.getCurrentLocation());
 
             isbn = bookInfo.getIsbn();
             imagePath = bookInfo.getImagePath();
-            bookID = bookInfo.getId();
+            bookID = bookInfo.getBookID();
 
             loadImage(bookInfo.getImagePath(), (ImageView) findViewById(R.id.book_image));
         }
@@ -104,15 +111,17 @@ public class BookDetailEditActivity extends Activity {
         imgManager.fetchDrawableOnThread(imagePath, imageView);
     }
 
-    private void configDefaultSetting(EditText titleView, EditText authorView, EditText publisherView, EditText descView, EditText locationView) {
-
+    private void configDefaultSetting(EditText callNoView, EditText regNoView, EditText titleView, EditText authorView, EditText publisherView, EditText descView, EditText originLocationView, EditText currentLocationView) {
         List<EditText> editTexts = new ArrayList<EditText>();
 
+        editTexts.add(callNoView);
+        editTexts.add(regNoView);
         editTexts.add(titleView);
         editTexts.add(authorView);
         editTexts.add(publisherView);
         editTexts.add(descView);
-        editTexts.add(locationView);
+        editTexts.add(originLocationView);
+        editTexts.add(currentLocationView);
 
         //키보드 엔터 기능 제거
         setKeyboardEnterDoNothing(editTexts);
@@ -174,14 +183,17 @@ public class BookDetailEditActivity extends Activity {
 
             case R.id.book_edit_ok:
 
+                String callNo = ((EditText) findViewById(R.id.call_no)).getText().toString();
+                String regNo = ((EditText) findViewById(R.id.reg_no)).getText().toString();
                 String title = ((EditText) findViewById(R.id.book_title)).getText().toString();
                 String author = ((EditText) findViewById(R.id.book_author)).getText().toString();
                 String publisher = ((EditText) findViewById(R.id.book_publisher)).getText().toString();
                 String desc = ((EditText) findViewById(R.id.book_description)).getText().toString();
-                String location = ((EditText) findViewById(R.id.book_location)).getText().toString();
+                String originLocation = ((EditText) findViewById(R.id.book_origin_location)).getText().toString();
+                String currentLocation = ((EditText) findViewById(R.id.book_current_location)).getText().toString();
 
-                if (title.isEmpty() || location.isEmpty()) {
-                    ToastMessage.showError(getApplicationContext(), "제목과 위치는 필수 정보입니다.", Toast.LENGTH_LONG);
+                if (callNo.isEmpty() || regNo.isEmpty() || title.isEmpty() || originLocation.isEmpty()) {
+                    ToastMessage.showError(getApplicationContext(), "청구기호, 등록번호, 제목, 원래 위치는 필수 정보입니다.", Toast.LENGTH_LONG);
                     break;
                 }
 
@@ -207,7 +219,7 @@ public class BookDetailEditActivity extends Activity {
                     }
                 }, getApplicationContext());
 
-                BookInfo bookInfo = new BookInfo(title, author, publisher, desc, location, imagePath, isbn);
+                BookInfo bookInfo = new BookInfo(callNo, regNo,title, author, publisher, desc, originLocation, currentLocation, imagePath, isbn);
 
                 if (InputMode.ISBN_INPUT.equals(mode) || InputMode.SELF.equals(mode)) {
                     conn.setHttpInfo(null, bookInfo.toJson(), null);

@@ -37,24 +37,30 @@ public class BookDetailViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_book_info);
 
-        final EditText titleView = (EditText) findViewById(R.id.book_title);
+        EditText callNoView = (EditText) findViewById(R.id.call_no);
+        EditText regNoView = (EditText) findViewById(R.id.reg_no);
+        EditText titleView = (EditText) findViewById(R.id.book_title);
         EditText authorView = (EditText) findViewById(R.id.book_author);
         EditText publisherView = (EditText) findViewById(R.id.book_publisher);
         EditText descView = (EditText) findViewById(R.id.book_description);
-        EditText locationView = (EditText) findViewById(R.id.book_location);
+        EditText originLocationView = (EditText) findViewById(R.id.book_origin_location);
+        EditText currentLocationView = (EditText) findViewById(R.id.book_current_location);
 
-        configDefaultSetting(titleView, authorView, publisherView, descView, locationView);
+        configDefaultSetting(callNoView, regNoView, titleView, authorView, publisherView, descView, originLocationView, currentLocationView);
 
         Intent detailIntent = getIntent();
         Bundle extras = detailIntent.getExtras();
         bookInfo = extras.getParcelable(IntentExtraEntry.BOOK_INFO);
         activityTitle = extras.getString(IntentExtraEntry.TITLE_KEYWORD);
 
-        titleView.setText(bookInfo.getTitle());
+        callNoView.setText(bookInfo.getCallNo());
+        regNoView.setText(bookInfo.getRegNo());
+        titleView.setText(bookInfo.getBookTitle());
         authorView.setText(bookInfo.getAuthor());
         publisherView.setText(bookInfo.getPublisher());
         descView.setText(bookInfo.getDescription());
-        locationView.setText(bookInfo.getLocation());
+        originLocationView.setText(bookInfo.getOriginLocation());
+        currentLocationView.setText(bookInfo.getCurrentLocation());
 
         loadImage(bookInfo.getImagePath(), (ImageView) findViewById(R.id.book_image));
     }
@@ -65,14 +71,17 @@ public class BookDetailViewActivity extends Activity {
         imgManager.fetchDrawableOnThread(imagePath, imageView);
     }
 
-    private void configDefaultSetting(EditText titleView, EditText authorView, EditText publisherView, EditText descView, EditText locationView) {
+    private void configDefaultSetting(EditText callNoView, EditText regNoView, EditText titleView, EditText authorView, EditText publisherView, EditText descView, EditText originLocationView, EditText currentLocationView) {
         List<EditText> editTexts = new ArrayList<EditText>();
 
+        editTexts.add(callNoView);
+        editTexts.add(regNoView);
         editTexts.add(titleView);
         editTexts.add(authorView);
         editTexts.add(publisherView);
         editTexts.add(descView);
-        editTexts.add(locationView);
+        editTexts.add(originLocationView);
+        editTexts.add(currentLocationView);
 
         setKeyboardEnterDoNothing(editTexts);
     }

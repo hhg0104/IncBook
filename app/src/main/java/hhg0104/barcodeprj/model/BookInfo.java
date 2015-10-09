@@ -12,6 +12,10 @@ import hhg0104.barcodeprj.utils.StringConstants;
  */
 public class BookInfo implements Parcelable, Comparable {
 
+    private String callNo = StringConstants.EMPTY;
+
+    private String regNo = StringConstants.EMPTY;
+
     private String bookID = StringConstants.EMPTY;
 
     private String bookTitle = StringConstants.EMPTY;
@@ -22,38 +26,83 @@ public class BookInfo implements Parcelable, Comparable {
 
     private String description = StringConstants.EMPTY;
 
-    private String location = StringConstants.EMPTY;
+    private String originLocation = StringConstants.EMPTY;
+
+    private String currentLocation = StringConstants.EMPTY;
 
     private String imagePath = StringConstants.EMPTY;
 
     private String isbn = StringConstants.EMPTY;
 
-    public String toJson(){
+    public String toJson() {
         return new Gson().toJson(this);
     }
 
-    public static BookInfo fromJson(String bookJson){
+    public String getOriginLocation() {
+        return originLocation;
+    }
+
+    public void setOriginLocation(String originLocation) {
+        this.originLocation = originLocation;
+    }
+
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+    public static BookInfo fromJson(String bookJson) {
         return new Gson().fromJson(bookJson, BookInfo.class);
     }
 
     public BookInfo() {
     }
 
-    public String getId() {
+    public String getCallNo() {
+        return callNo;
+    }
+
+    public void setCallNo(String callNo) {
+        this.callNo = callNo;
+    }
+
+    public String getRegNo() {
+        return regNo;
+    }
+
+    public void setRegNo(String regNo) {
+        this.regNo = regNo;
+    }
+
+    public String getBookID() {
         return bookID;
     }
 
-    public void setId(String id) {
-        this.bookID = id;
+    public void setBookID(String bookID) {
+        this.bookID = bookID;
     }
 
-    public BookInfo(String title, String author, String publisher, String description, String location, String imagePath, String isbn) {
+    public String getBookTitle() {
+        return bookTitle;
+    }
 
-        setTitle(title);
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public BookInfo(String callNo, String regNo, String title, String author, String publisher, String description, String originLocation, String currentLocation, String imagePath, String isbn) {
+
+        setCallNo(callNo);
+        setRegNo(regNo);
+        setBookTitle(title);
         setAuthor(author);
         setPublisher(publisher);
         setDescription(description);
-        setLocation(location);
+        setOriginLocation(originLocation);
+        setCurrentLocation(currentLocation);
         setImagePath(imagePath);
         setIsbn(isbn);
     }
@@ -74,16 +123,6 @@ public class BookInfo implements Parcelable, Comparable {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public String getTitle() {
-        return bookTitle;
-    }
-
-    public void setTitle(String title) {
-        if (title != null) {
-            this.bookTitle = title;
-        }
     }
 
     public String getAuthor() {
@@ -116,16 +155,6 @@ public class BookInfo implements Parcelable, Comparable {
         }
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        if (location != null) {
-            this.location = location;
-        }
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -134,11 +163,14 @@ public class BookInfo implements Parcelable, Comparable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(bookID);
+        dest.writeString(callNo);
+        dest.writeString(regNo);
         dest.writeString(bookTitle);
         dest.writeString(author);
         dest.writeString(publisher);
         dest.writeString(description);
-        dest.writeString(location);
+        dest.writeString(originLocation);
+        dest.writeString(currentLocation);
         dest.writeString(imagePath);
         dest.writeString(isbn);
     }
@@ -150,12 +182,15 @@ public class BookInfo implements Parcelable, Comparable {
 
             BookInfo bookInfo = new BookInfo();
 
-            bookInfo.setId(source.readString());
-            bookInfo.setTitle(source.readString());
+            bookInfo.setBookID(source.readString());
+            bookInfo.setCallNo(source.readString());
+            bookInfo.setRegNo(source.readString());
+            bookInfo.setBookTitle(source.readString());
             bookInfo.setAuthor(source.readString());
             bookInfo.setPublisher(source.readString());
             bookInfo.setDescription(source.readString());
-            bookInfo.setLocation(source.readString());
+            bookInfo.setOriginLocation(source.readString());
+            bookInfo.setCurrentLocation(source.readString());
             bookInfo.setImagePath(source.readString());
             bookInfo.setIsbn(source.readString());
             return bookInfo;
@@ -170,12 +205,12 @@ public class BookInfo implements Parcelable, Comparable {
     @Override
     public int compareTo(Object another) {
 
-        if((another instanceof BookInfo) == false){
+        if ((another instanceof BookInfo) == false) {
             return 0;
         }
 
         BookInfo otherInfo = (BookInfo) another;
 
-        return this.bookTitle.compareTo(otherInfo.getTitle());
+        return this.bookTitle.compareTo(otherInfo.getBookTitle());
     }
 }

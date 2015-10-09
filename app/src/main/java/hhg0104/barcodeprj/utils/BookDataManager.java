@@ -36,7 +36,7 @@ public class BookDataManager {
         List<BookInfo> searchedBookData = new ArrayList<BookInfo>();
 
         for (BookInfo bookInfo : bookData) {
-            String title = bookInfo.getTitle();
+            String title = bookInfo.getBookTitle();
 
             if(title == null || title.isEmpty()){
                 continue;
@@ -80,7 +80,7 @@ public class BookDataManager {
         }
 
         for (BookInfo bookInfo : bookData) {
-            String id = bookInfo.getId();
+            String id = bookInfo.getBookID();
 
             if (id == null || id.isEmpty()) {
                 return new BookInfo();
