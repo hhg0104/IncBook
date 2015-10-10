@@ -25,17 +25,21 @@ import hhg0104.barcodeprj.utils.IntentExtraEntry;
 /**
  * Created by HGHAN on 2015-09-14.
  */
-public class BookDetailViewActivity extends Activity {
+public class BookDetailViewActivity extends Activity{
 
     private BookInfo bookInfo;
 
     private String activityTitle;
+
+    private Activity thisActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_book_info);
+
+        thisActivity = this;
 
         EditText callNoView = (EditText) findViewById(R.id.call_no);
         EditText regNoView = (EditText) findViewById(R.id.reg_no);
@@ -45,8 +49,9 @@ public class BookDetailViewActivity extends Activity {
         EditText descView = (EditText) findViewById(R.id.book_description);
         EditText originLocationView = (EditText) findViewById(R.id.book_origin_location);
         EditText currentLocationView = (EditText) findViewById(R.id.book_current_location);
+        ImageView changePhotoImageView = (ImageView) findViewById(R.id.book_change_image);
 
-        configDefaultSetting(callNoView, regNoView, titleView, authorView, publisherView, descView, originLocationView, currentLocationView);
+        configDefaultSetting(callNoView, regNoView, titleView, authorView, publisherView, descView, originLocationView, currentLocationView, changePhotoImageView);
 
         Intent detailIntent = getIntent();
         Bundle extras = detailIntent.getExtras();
@@ -63,6 +68,24 @@ public class BookDetailViewActivity extends Activity {
         currentLocationView.setText(bookInfo.getCurrentLocation());
 
         loadImage(bookInfo.getImagePath(), (ImageView) findViewById(R.id.book_image));
+
+        setImageClickEvent(bookInfo.getImagePath());
+    }
+
+    private void setImageClickEvent(final String imagePath) {
+
+        final ImageView imageView = (ImageView) findViewById(R.id.book_image);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent fullSizeIntent = new Intent(thisActivity, ImageFullSizeActivity.class);
+                fullSizeIntent.putExtra("imagePath", imagePath);
+                startActivity(fullSizeIntent);
+
+            }
+        });
+
     }
 
     private void loadImage(String imagePath, ImageView imageView) {
@@ -71,7 +94,9 @@ public class BookDetailViewActivity extends Activity {
         imgManager.fetchDrawableOnThread(imagePath, imageView);
     }
 
-    private void configDefaultSetting(EditText callNoView, EditText regNoView, EditText titleView, EditText authorView, EditText publisherView, EditText descView, EditText originLocationView, EditText currentLocationView) {
+    private void configDefaultSetting(EditText callNoView, EditText regNoView, EditText titleView, EditText authorView,
+                                      EditText publisherView, EditText descView, EditText originLocationView,
+                                      EditText currentLocationView, ImageView changePhotoImageView) {
         List<EditText> editTexts = new ArrayList<EditText>();
 
         editTexts.add(callNoView);
@@ -82,6 +107,8 @@ public class BookDetailViewActivity extends Activity {
         editTexts.add(descView);
         editTexts.add(originLocationView);
         editTexts.add(currentLocationView);
+
+        changePhotoImageView.setVisibility(ImageView.INVISIBLE);
 
         setKeyboardEnterDoNothing(editTexts);
     }
@@ -146,4 +173,5 @@ public class BookDetailViewActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

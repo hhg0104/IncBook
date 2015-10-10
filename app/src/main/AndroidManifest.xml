@@ -51,6 +51,11 @@
             android:name=".activities.BookDetailEditActivity"
             android:parentActivityName=".activities.MainActivity"/>
 
+        <activity
+            android:theme="@style/NoTitleTheme"
+            android:name=".activities.ImageFullSizeActivity"
+            android:parentActivityName=".activities.BookDetailViewActivity"/>
+
         <!-- zxing Library의 QR Code Activity -->
         <activity
             android:name="com.google.zxing.client.android.CaptureActivity"
