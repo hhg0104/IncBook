@@ -50,20 +50,6 @@ public class SearchResultActivity extends Activity implements AdapterView.OnItem
             final ListView listView = (ListView) findViewById(R.id.searched_list);
             listView.setOnItemClickListener(this);
 
-//            ServerConnector conn = new ServerConnector(new HttpListener() {
-//                @Override
-//                public void getResult(ResponseModel response) {
-//                    List<BookInfo> allBooks = new Gson().fromJson(response.getData(), new TypeToken<List<BookInfo>>() {
-//                    }.getType());
-//
-//                    searchedBooks.clear();
-//                    searchedBooks.addAll(allBooks);
-//
-//                    CustomAdapter adapter = new CustomAdapter(searchActivity, searchedBooks);
-//                    listView.setAdapter(adapter);
-//                }
-//            }, getApplicationContext());
-
             String query = intent.getStringExtra(IntentExtraEntry.QUERY);
 
             searchedBooks.clear();
@@ -71,13 +57,6 @@ public class SearchResultActivity extends Activity implements AdapterView.OnItem
 
             CustomAdapter adapter = new CustomAdapter(this, searchedBooks);
             listView.setAdapter(adapter);
-
-//            Map<String, String> params = new HashMap<String, String>();
-//            params.put("keyword", query);
-//
-//            conn.setHttpInfo(null, null, params);
-//
-//            conn.execute(HttpAction.SEARCH_BOOKS);
         }
     }
 

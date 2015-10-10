@@ -36,15 +36,25 @@ public class BookDataManager {
         List<BookInfo> searchedBookData = new ArrayList<BookInfo>();
 
         for (BookInfo bookInfo : bookData) {
+            String callNo = bookInfo.getCallNo();
+            String regNo = bookInfo.getRegNo();
             String title = bookInfo.getBookTitle();
 
+            if(callNo == null || callNo.isEmpty()){
+                continue;
+            }
+            if(regNo == null || regNo.isEmpty()){
+                continue;
+            }
             if(title == null || title.isEmpty()){
                 continue;
             }
 
+            callNo = callNo.toLowerCase();
+            regNo = regNo.toLowerCase();
             title = title.toLowerCase();
 
-            if(title.contains(keyword)){
+            if(title.contains(keyword) || callNo.equals(keyword) || regNo.equals(keyword)){
                 searchedBookData.add(bookInfo);
             }
         }

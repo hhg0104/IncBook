@@ -212,7 +212,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
                 .getActionView();
 
-        searchView.setQueryHint("도서 검색...");
+        searchView.setQueryHint("제목, 청구기호, 등록번호 검색");
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
