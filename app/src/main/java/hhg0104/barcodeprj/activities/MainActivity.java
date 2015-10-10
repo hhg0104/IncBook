@@ -103,7 +103,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 BookDataManager.getInstance().save(books);
 
             }
-        }, getApplicationContext());
+        }, this);
 
         if (Build.VERSION.SDK_INT >= 11) {
             conn.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, HttpAction.GET_BOOKS);

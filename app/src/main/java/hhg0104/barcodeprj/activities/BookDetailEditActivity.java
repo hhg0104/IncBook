@@ -217,7 +217,7 @@ public class BookDetailEditActivity extends Activity {
 
                         startActivity(mainIntent);
                     }
-                }, getApplicationContext());
+                }, this);
 
                 BookInfo bookInfo = new BookInfo(callNo, regNo,title, author, publisher, desc, originLocation, currentLocation, imagePath, isbn);
 

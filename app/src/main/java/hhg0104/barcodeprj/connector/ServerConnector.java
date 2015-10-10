@@ -1,7 +1,7 @@
 package hhg0104.barcodeprj.connector;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.HashMap;
@@ -39,13 +39,13 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
         }
     }
 
-    public ServerConnector(HttpListener listener, Context context) {
+    public ServerConnector(HttpListener listener, Activity activity) {
 
         super();
 
         this.listener = listener;
 
-        progress = new ProgressDialog(context);
+        progress = new ProgressDialog(activity);
     }
 
     private String getBooks() throws InvalidResponseException {
@@ -114,10 +114,10 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
 
     @Override
     protected void onPreExecute() {
-//        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progress.setMessage("로딩중입니다...");
-//
-//        progress.show();
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setMessage("로딩중입니다...");
+
+        progress.show();
         super.onPreExecute();
     }
 
@@ -159,7 +159,7 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
 
     @Override
     protected void onPostExecute(ResponseModel response) {
-//        progress.dismiss();
+        progress.dismiss();
 
         int statusCode = response.getStatusCode();
         String message = response.getData();
