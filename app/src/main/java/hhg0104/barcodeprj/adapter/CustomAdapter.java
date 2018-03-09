@@ -70,7 +70,7 @@ public class CustomAdapter extends BaseAdapter {
         holder.location.setText(book.getLocation());
 
         DrawableManager imgManager = DrawableManager.getInstance();
-        imgManager.fetchDrawableOnThread(book.getImagePath(), holder.image);
+        imgManager.fetchDrawableOnThread(book.getImageUrl(), holder.image);
 
         view.setTag(holder);
 

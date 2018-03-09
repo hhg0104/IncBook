@@ -142,11 +142,13 @@
   <string name="wifi_changing_network">Requesting connection to network\u2026</string>
   <string name="profile">Profile</string>
   <string name="action_search">Search</string>
-  <string name="add_book">add</string>
-  <string name="edit">수정</string>
+  <string name="add_book">Add</string>
+  <string name="edit">Edit</string>
+  <string name="delete_message_format">Delete \"%s\"?</string>
+  <string name="delete">Delete</string>
   <string name="book_edit_ok">ok</string>
-  <string name="refresh">데이터 갱신</string>
-  <string name="server_config">서버 설정</string>
+  <string name="refresh">Refresh</string>
+  <string name="server_config">Config Server</string>
 
   <!--Names-->
   <string-array name="Member_names">

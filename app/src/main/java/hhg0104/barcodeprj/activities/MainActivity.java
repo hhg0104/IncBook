@@ -48,7 +48,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     public static final String SCAN_RESULT = "SCAN_RESULT";
     public static final String SCAN_RESULT_FORMAT = "SCAN_RESULT_FORMAT";
-    public static final String TEXT_NOT_RIGHT_BARCODE = "정상적인 바코드가 아닙니다.";
+    public static final String TEXT_NOT_RIGHT_BARCODE = "Not valid barcode.";
     public static final String EAN_13 = "EAN_13";
     private int backButtonCount;
 
@@ -68,7 +68,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         boolean hasServerInfo = ServerConfiguration.hasServerConfiguration(getSharedPreferences(ServerConfiguration.SERVER_PREFERENCE, MODE_PRIVATE));
 
         if (hasServerInfo == false) {
-            ToastMessage.showError(this, "서버 정보를 다시 설정해주십시오.", Toast.LENGTH_LONG);
+            ToastMessage.showError(this, "You need to config server info first.", Toast.LENGTH_LONG);
 
         } else {
             initServerConfiguration();
@@ -143,7 +143,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         finish();
         startActivity(getIntent());
 
-        ToastMessage.showDefault(mainActivity, "데이터 갱신 완료", Toast.LENGTH_SHORT);
+        ToastMessage.showDefault(mainActivity, "Refreshed.", Toast.LENGTH_SHORT);
     }
 
     @Override
@@ -187,7 +187,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 bookInfo.setIsbn(isbn);
 
                 isbnIntent.putExtra(IntentExtraEntry.MODE, InputMode.ISBN_INPUT);
-                isbnIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "등록");
+                isbnIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "Add");
                 isbnIntent.putExtra(IntentExtraEntry.BOOK_INFO, bookInfo);
 
                 startActivity(isbnIntent);
@@ -206,12 +206,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
                 .getActionView();
 
-        searchView.setQueryHint("도서 검색...");
+        searchView.setQueryHint("search...");
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        getActionBar().setTitle("도서 목록");
+        getActionBar().setTitle("Book List");
         return true;
     }
 
@@ -223,7 +223,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
-            ToastMessage.showDefault(this, "\"뒤로\" 버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+            ToastMessage.showDefault(this, "Push again \"back button\" will finish the app.", Toast.LENGTH_SHORT);
             backButtonCount++;
         }
     }
@@ -277,9 +277,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                         break;
 
                     case SELF:
-                        ToastMessage.showDefault(getApplicationContext(), "직접입력 선택", Toast.LENGTH_SHORT);
                         Intent selfIntent = new Intent(mainActivity, BookDetailEditActivity.class);
-                        selfIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "등록");
+                        selfIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "Add");
                         selfIntent.putExtra(IntentExtraEntry.MODE, InputMode.SELF);
 
                         startActivity(selfIntent);
@@ -301,7 +300,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
         Intent detailIntent = new Intent(mainActivity, BookDetailViewActivity.class);
 
-        detailIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "정보");
+        detailIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "Info");
 
         detailIntent.putExtra(IntentExtraEntry.MODE, InputMode.VIEW);
         detailIntent.putExtra(IntentExtraEntry.BOOK_INFO, selectedBook);

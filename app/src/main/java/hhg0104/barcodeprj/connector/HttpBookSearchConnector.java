@@ -86,7 +86,7 @@ public class HttpBookSearchConnector {
                     if ("image".equalsIgnoreCase(name)) {
                         eventType = xpp.next();
                         if (eventType == XmlPullParser.TEXT) {
-                            bookInfo.setImagePath(xpp.getText().trim());
+                            bookInfo.setImageUrl(xpp.getText().trim());
                         }
                     }
 

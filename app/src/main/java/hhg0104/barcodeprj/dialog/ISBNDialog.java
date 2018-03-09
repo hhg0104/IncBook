@@ -26,7 +26,7 @@ public class ISBNDialog extends Dialog implements View.OnClickListener {
 
     public ISBNDialog(Context context) {
         super(context);
-        setTitle("ISBN 입력");
+        setTitle("ISBN");
         setContentView(R.layout.dialog_isbn_input);
 
         TextView isbnBtn = (TextView) findViewById(R.id.input_isbn_ok);

@@ -12,9 +12,9 @@ import hhg0104.barcodeprj.utils.StringConstants;
  */
 public class BookInfo implements Parcelable, Comparable {
 
-    private String bookID = StringConstants.EMPTY;
+    private String id = StringConstants.EMPTY;
 
-    private String bookTitle = StringConstants.EMPTY;
+    private String title = StringConstants.EMPTY;
 
     private String author = StringConstants.EMPTY;
 
@@ -24,7 +24,7 @@ public class BookInfo implements Parcelable, Comparable {
 
     private String location = StringConstants.EMPTY;
 
-    private String imagePath = StringConstants.EMPTY;
+    private String imageUrl = StringConstants.EMPTY;
 
     private String isbn = StringConstants.EMPTY;
 
@@ -40,31 +40,31 @@ public class BookInfo implements Parcelable, Comparable {
     }
 
     public String getId() {
-        return bookID;
+        return id;
     }
 
     public void setId(String id) {
-        this.bookID = id;
+        this.id = id;
     }
 
-    public BookInfo(String title, String author, String publisher, String description, String location, String imagePath, String isbn) {
+    public BookInfo(String title, String author, String publisher, String description, String location, String imageUrl, String isbn) {
 
         setTitle(title);
         setAuthor(author);
         setPublisher(publisher);
         setDescription(description);
         setLocation(location);
-        setImagePath(imagePath);
+        setImageUrl(imageUrl);
         setIsbn(isbn);
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImagePath(String imagePath) {
-        if (imagePath != null) {
-            this.imagePath = imagePath;
+    public void setImageUrl(String imageUrl) {
+        if (imageUrl != null) {
+            this.imageUrl = imageUrl;
         }
     }
 
@@ -77,12 +77,12 @@ public class BookInfo implements Parcelable, Comparable {
     }
 
     public String getTitle() {
-        return bookTitle;
+        return title;
     }
 
     public void setTitle(String title) {
         if (title != null) {
-            this.bookTitle = title;
+            this.title = title;
         }
     }
 
@@ -133,13 +133,13 @@ public class BookInfo implements Parcelable, Comparable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(bookID);
-        dest.writeString(bookTitle);
+        dest.writeString(id);
+        dest.writeString(title);
         dest.writeString(author);
         dest.writeString(publisher);
         dest.writeString(description);
         dest.writeString(location);
-        dest.writeString(imagePath);
+        dest.writeString(imageUrl);
         dest.writeString(isbn);
     }
 
@@ -156,7 +156,7 @@ public class BookInfo implements Parcelable, Comparable {
             bookInfo.setPublisher(source.readString());
             bookInfo.setDescription(source.readString());
             bookInfo.setLocation(source.readString());
-            bookInfo.setImagePath(source.readString());
+            bookInfo.setImageUrl(source.readString());
             bookInfo.setIsbn(source.readString());
             return bookInfo;
         }
@@ -176,6 +176,6 @@ public class BookInfo implements Parcelable, Comparable {
 
         BookInfo otherInfo = (BookInfo) another;
 
-        return this.bookTitle.compareTo(otherInfo.getTitle());
+        return this.title.compareTo(otherInfo.getTitle());
     }
 }

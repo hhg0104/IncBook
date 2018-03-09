@@ -22,7 +22,7 @@ public class OptionDialog extends Dialog implements View.OnClickListener {
 
     public OptionDialog(Context context) {
         super(context);
-        setTitle("등록 방법 선택");
+        setTitle("Select");
         setContentView(R.layout.dialog_options);
 
         TextView barcodeBtn = (TextView) findViewById(R.id.option_barcode);

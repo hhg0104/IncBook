@@ -32,7 +32,7 @@
         android:layout_below="@id/option_isbn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="직접 입력"
+        android:text="SELF INPUT"
         android:textSize="25sp"
         android:background="@drawable/click_color1"/>
 

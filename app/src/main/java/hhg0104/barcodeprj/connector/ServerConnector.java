@@ -105,7 +105,7 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
         String host = serverConfig.getHost();
         String port = String.valueOf(serverConfig.getPort());
 
-        String result = HttpConnector.post(SCHEME + host + StringConstants.COLON + port + "/books/" + bookID, null);
+        String result = HttpConnector.delete(SCHEME + host + StringConstants.COLON + port + "/books/" + bookID);
 
         return result;
     }

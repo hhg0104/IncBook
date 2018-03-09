@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hhg0104.barcodeprj.R;
+import hhg0104.barcodeprj.dialog.ConfirmDialog;
 import hhg0104.barcodeprj.model.BookInfo;
 import hhg0104.barcodeprj.utils.DrawableManager;
 import hhg0104.barcodeprj.utils.InputMode;
@@ -56,7 +57,7 @@ public class BookDetailViewActivity extends Activity {
         descView.setText(bookInfo.getDescription());
         locationView.setText(bookInfo.getLocation());
 
-        loadImage(bookInfo.getImagePath(), (ImageView) findViewById(R.id.book_image));
+        loadImage(bookInfo.getImageUrl(), (ImageView) findViewById(R.id.book_image));
     }
 
     private void loadImage(String imagePath, ImageView imageView) {
@@ -122,11 +123,24 @@ public class BookDetailViewActivity extends Activity {
                 Intent editIntent = new Intent(this, BookDetailEditActivity.class);
 
                 editIntent.putExtra(IntentExtraEntry.MODE, InputMode.VIEW);
-                editIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "수정");
+                editIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "Edit");
                 editIntent.putExtra(IntentExtraEntry.BOOK_INFO, bookInfo);
 
                 startActivity(editIntent);
                 overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
+                break;
+
+            case R.id.book_delete_do:
+
+                String bookTitle = bookInfo.getTitle();
+                String bookId = bookInfo.getId();
+                String messageFormat = getResources().getString(R.string.delete_message_format);
+                String message = String.format(messageFormat, bookTitle);
+
+                ConfirmDialog dialog = new ConfirmDialog(this);
+                DeleteBookClickListener listener = new DeleteBookClickListener(this, bookId);
+
+                dialog.showConfirmDialog(message, listener);
                 break;
 
             case android.R.id.home:

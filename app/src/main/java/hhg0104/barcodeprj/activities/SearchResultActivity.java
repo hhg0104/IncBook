@@ -86,7 +86,7 @@ public class SearchResultActivity extends Activity implements AdapterView.OnItem
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu_main, menu);
 
-        getActionBar().setTitle("검색 결과");
+        getActionBar().setTitle("Search result");
 
         return true;
     }
@@ -119,7 +119,7 @@ public class SearchResultActivity extends Activity implements AdapterView.OnItem
 
         Intent detailIntent = new Intent(searchActivity, BookDetailViewActivity.class);
 
-        detailIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "정보");
+        detailIntent.putExtra(IntentExtraEntry.TITLE_KEYWORD, "Info");
         detailIntent.putExtra(IntentExtraEntry.MODE, InputMode.VIEW);
         detailIntent.putExtra(IntentExtraEntry.BOOK_INFO, selectedBook);
 

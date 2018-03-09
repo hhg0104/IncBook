@@ -91,10 +91,10 @@ public class BookDetailEditActivity extends Activity {
             locationView.setText(bookInfo.getLocation());
 
             isbn = bookInfo.getIsbn();
-            imagePath = bookInfo.getImagePath();
+            imagePath = bookInfo.getImageUrl();
             bookID = bookInfo.getId();
 
-            loadImage(bookInfo.getImagePath(), (ImageView) findViewById(R.id.book_image));
+            loadImage(bookInfo.getImageUrl(), (ImageView) findViewById(R.id.book_image));
         }
     }
 
@@ -181,7 +181,7 @@ public class BookDetailEditActivity extends Activity {
                 String location = ((EditText) findViewById(R.id.book_location)).getText().toString();
 
                 if (title.isEmpty() || location.isEmpty()) {
-                    ToastMessage.showError(getApplicationContext(), "제목과 위치는 필수 정보입니다.", Toast.LENGTH_LONG);
+                    ToastMessage.showError(getApplicationContext(), "Title and Location are mandatory.", Toast.LENGTH_LONG);
                     break;
                 }
 
@@ -195,9 +195,10 @@ public class BookDetailEditActivity extends Activity {
                         }
 
                         if (InputMode.ISBN_INPUT.equals(mode) || InputMode.SELF.equals(mode)) {
-                            ToastMessage.showDefault(getApplicationContext(), "책 정보 추가 완료", Toast.LENGTH_SHORT);
+                            ToastMessage.showDefault(getApplicationContext(), "Added", Toast.LENGTH_SHORT);
+
                         } else if (InputMode.VIEW.equals(mode)) {
-                            ToastMessage.showDefault(getApplicationContext(), "책 정보 수정 완료", Toast.LENGTH_SHORT);
+                            ToastMessage.showDefault(getApplicationContext(), "Edited", Toast.LENGTH_SHORT);
                         }
 
                         Intent mainIntent = new Intent(thisActivity, MainActivity.class);

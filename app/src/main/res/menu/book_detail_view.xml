@@ -2,10 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".BookDetailActivity">
 
     <item
+        android:id="@+id/book_delete_do"
+        android:icon="@drawable/delete_icon"
+        android:showAsAction="always"
+        android:title="@string/delete"
+        />
+
+    <item
         android:id="@+id/book_edit_do"
         android:icon="@drawable/edit_icon"
         android:showAsAction="always"
         android:title="@string/edit"
         />
-
 </menu>

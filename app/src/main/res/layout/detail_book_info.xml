@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
-                android:text="책 정보"
+                android:text="Book"
                 android:textColor="#8aa3fb"
                 android:textSize="15sp"/>
 
@@ -46,7 +46,7 @@
                     android:layout_marginRight="18dp"
                     android:editable="false"
                     android:gravity="bottom"
-                    android:text="제 목:"/>
+                    android:text="Title:"/>
 
                 <EditText
                     android:id="@+id/book_title"
@@ -72,7 +72,7 @@
                     android:layout_marginRight="10dp"
                     android:editable="false"
                     android:gravity="bottom"
-                    android:text="글쓴이:"/>
+                    android:text="Author:"/>
 
                 <EditText
                     android:id="@+id/book_author"
@@ -97,7 +97,7 @@
                     android:layout_marginRight="10dp"
                     android:editable="false"
                     android:gravity="bottom"
-                    android:text="출판사:"/>
+                    android:text="Publisher:"/>
 
                 <EditText
                     android:id="@+id/book_publisher"
@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
-                android:text="위치 정보"
+                android:text="Location"
                 android:textColor="#8aa3fb"
                 android:textSize="15sp"/>
 
@@ -139,7 +139,7 @@
                     android:layout_marginRight="10dp"
                     android:editable="false"
                     android:gravity="bottom"
-                    android:text="현재 위치:"/>
+                    android:text="Location:"/>
 
                 <EditText
                     android:id="@+id/book_location"
@@ -166,7 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
-                android:text="책 소개"
+                android:text="Description"
                 android:textColor="#8aa3fb"
                 android:textSize="15sp"/>
 
