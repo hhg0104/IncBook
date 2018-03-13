@@ -26,6 +26,8 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
 
     private String bookID;
 
+    private String AUTH_KEY_PARAM_STR = "?auth_key=D0404DA24D18483895DB5676E0A274A4";
+
     private Map<String, String> params = new HashMap<String, String>();
 
     ProgressDialog progress;
@@ -52,7 +54,7 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
         String host = serverConfig.getHost();
         String port = String.valueOf(serverConfig.getPort());
 
-        String result = HttpConnector.get(SCHEME + host + StringConstants.COLON + port + "/books");
+        String result = HttpConnector.get(SCHEME + host + StringConstants.COLON + port + "/books" + AUTH_KEY_PARAM_STR);
 
         return result;
     }
@@ -76,7 +78,7 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
         String host = serverConfig.getHost();
         String port = String.valueOf(serverConfig.getPort());
 
-        String result = HttpConnector.get(SCHEME + host + StringConstants.COLON + port + "/books/" + bookID);
+        String result = HttpConnector.get(SCHEME + host + StringConstants.COLON + port + "/books/" + bookID + AUTH_KEY_PARAM_STR);
 
         return result;
     }
@@ -87,7 +89,7 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
         String host = serverConfig.getHost();
         String port = String.valueOf(serverConfig.getPort());
 
-        return HttpConnector.post(SCHEME + host + StringConstants.COLON + port + "/book", requestJson);
+        return HttpConnector.post(SCHEME + host + StringConstants.COLON + port + "/book" + AUTH_KEY_PARAM_STR, requestJson);
     }
 
     private String editBook() throws InvalidResponseException {
@@ -96,7 +98,7 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
         String host = serverConfig.getHost();
         String port = String.valueOf(serverConfig.getPort());
 
-        return HttpConnector.put(SCHEME + host + StringConstants.COLON + port + "/books/" + bookID, requestJson);
+        return HttpConnector.put(SCHEME + host + StringConstants.COLON + port + "/books/" + bookID + AUTH_KEY_PARAM_STR, requestJson);
     }
 
     private String deleteBook() throws InvalidResponseException {
@@ -105,17 +107,13 @@ public class ServerConnector extends AsyncTask<String, Void, ResponseModel> {
         String host = serverConfig.getHost();
         String port = String.valueOf(serverConfig.getPort());
 
-        String result = HttpConnector.delete(SCHEME + host + StringConstants.COLON + port + "/books/" + bookID);
+        String result = HttpConnector.delete(SCHEME + host + StringConstants.COLON + port + "/books/" + bookID + AUTH_KEY_PARAM_STR);
 
         return result;
     }
 
     @Override
     protected void onPreExecute() {
-//        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        progress.setMessage("로딩중입니다...");
-//
-//        progress.show();
         super.onPreExecute();
     }
 

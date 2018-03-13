@@ -182,6 +182,18 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             @Override
             public void postResponse(BookInfo bookInfo) {
 
+                Exception error = bookInfo.getError();
+                if(bookInfo.getError() != null) {
+                    ToastMessage.showError(mainActivity, "[ISBN search connection error]" + error.getMessage(), Toast.LENGTH_LONG);
+                    return;
+                }
+
+                if(bookInfo.isEmpty()) {
+                    String messageFormat = "Couldn't find the book info from the ISBN [%s]";
+                    ToastMessage.showError(mainActivity, String.format(messageFormat, isbn), Toast.LENGTH_LONG);
+                    return;
+                }
+
                 Intent isbnIntent = new Intent(mainActivity, BookDetailEditActivity.class);
 
                 bookInfo.setIsbn(isbn);
@@ -223,7 +235,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
-            ToastMessage.showDefault(this, "Push again \"back button\" will finish the app.", Toast.LENGTH_SHORT);
+            ToastMessage.showDefault(this, "Push again \"back button\" will close the app.", Toast.LENGTH_SHORT);
             backButtonCount++;
         }
     }
@@ -266,7 +278,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                         break;
 
                     case ISBN:
-                        ISBNDialog isbnDialog = new ISBNDialog(mainActivity);
+                        ISBNDialog isbnDialog = new ISBNDialog(mainActivity, books);
                         isbnDialog.setListener(new ISBNDialogListener() {
                             @Override
                             public void setSelectedValue(String isbn) {

@@ -28,6 +28,8 @@ public class BookInfo implements Parcelable, Comparable {
 
     private String isbn = StringConstants.EMPTY;
 
+    private Exception error = null;
+
     public String toJson(){
         return new Gson().toJson(this);
     }
@@ -78,6 +80,14 @@ public class BookInfo implements Parcelable, Comparable {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setError(Exception error) {
+        this.error = error;
+    }
+
+    public Exception getError() {
+        return error;
     }
 
     public void setTitle(String title) {
@@ -177,5 +187,9 @@ public class BookInfo implements Parcelable, Comparable {
         BookInfo otherInfo = (BookInfo) another;
 
         return this.title.compareTo(otherInfo.getTitle());
+    }
+
+    public boolean isEmpty() {
+        return this.title == null || this.title.isEmpty();
     }
 }

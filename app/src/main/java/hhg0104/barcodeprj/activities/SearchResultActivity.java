@@ -28,6 +28,8 @@ public class SearchResultActivity extends Activity implements AdapterView.OnItem
 
     private Activity searchActivity;
 
+    private String query = "";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
@@ -50,34 +52,14 @@ public class SearchResultActivity extends Activity implements AdapterView.OnItem
             final ListView listView = (ListView) findViewById(R.id.searched_list);
             listView.setOnItemClickListener(this);
 
-//            ServerConnector conn = new ServerConnector(new HttpListener() {
-//                @Override
-//                public void getResult(ResponseModel response) {
-//                    List<BookInfo> allBooks = new Gson().fromJson(response.getData(), new TypeToken<List<BookInfo>>() {
-//                    }.getType());
-//
-//                    searchedBooks.clear();
-//                    searchedBooks.addAll(allBooks);
-//
-//                    CustomAdapter adapter = new CustomAdapter(searchActivity, searchedBooks);
-//                    listView.setAdapter(adapter);
-//                }
-//            }, getApplicationContext());
-
-            String query = intent.getStringExtra(IntentExtraEntry.QUERY);
+            this.query = intent.getStringExtra(IntentExtraEntry.QUERY);
 
             searchedBooks.clear();
-            searchedBooks.addAll(BookDataManager.getInstance().getSearchedData(query));
+            searchedBooks.addAll(BookDataManager.getInstance().getSearchedData(this.query));
 
             CustomAdapter adapter = new CustomAdapter(this, searchedBooks);
             listView.setAdapter(adapter);
 
-//            Map<String, String> params = new HashMap<String, String>();
-//            params.put("keyword", query);
-//
-//            conn.setHttpInfo(null, null, params);
-//
-//            conn.execute(HttpAction.SEARCH_BOOKS);
         }
     }
 
@@ -86,7 +68,7 @@ public class SearchResultActivity extends Activity implements AdapterView.OnItem
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu_main, menu);
 
-        getActionBar().setTitle("Search result");
+        getActionBar().setTitle("Searched by " + this.query);
 
         return true;
     }

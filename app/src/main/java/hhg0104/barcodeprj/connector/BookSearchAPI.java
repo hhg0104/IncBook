@@ -14,7 +14,9 @@ public interface BookSearchAPI {
 
     public Map<String, String> getParams();
 
-    public String getURL();
+    public Map<String, String> getHeaders();
+
+    public URL getURL();
 
     public String getContentType();
 }

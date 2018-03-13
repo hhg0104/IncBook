@@ -8,8 +8,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hhg0104.barcodeprj.R;
 import hhg0104.barcodeprj.listener.ISBNDialogListener;
+import hhg0104.barcodeprj.model.BookInfo;
 import hhg0104.barcodeprj.utils.ToastMessage;
 
 /**
@@ -19,19 +23,23 @@ public class ISBNDialog extends Dialog implements View.OnClickListener {
 
     private ISBNDialogListener listener;
 
-    public void setListener(ISBNDialogListener listener) {
+    private List<BookInfo> books = new ArrayList<BookInfo>();
 
-        this.listener = listener;
-    }
-
-    public ISBNDialog(Context context) {
+    public ISBNDialog(Context context, List<BookInfo> books) {
         super(context);
+        this.books = books;
+
         setTitle("ISBN");
         setContentView(R.layout.dialog_isbn_input);
 
         TextView isbnBtn = (TextView) findViewById(R.id.input_isbn_ok);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         isbnBtn.setOnClickListener(this);
+    }
+
+    public void setListener(ISBNDialogListener listener) {
+
+        this.listener = listener;
     }
 
     @Override
@@ -44,9 +52,29 @@ public class ISBNDialog extends Dialog implements View.OnClickListener {
             String inputISBN = isbnInput.getText().toString().trim();
 
             if (inputISBN.isEmpty()) {
-                ToastMessage.showError(getContext(), "ISBN을 입력해주십시오.", Toast.LENGTH_SHORT);
+                ToastMessage.showError(getContext(), "Input 13 digit ISBN.", Toast.LENGTH_SHORT);
                 return;
             }
+
+            if(inputISBN.length() != 13) {
+                ToastMessage.showError(getContext(), "Input 13 digit ISBN.", Toast.LENGTH_SHORT);
+                return;
+            }
+
+            boolean exist = false;
+            for (BookInfo book : books) {
+                String isbn = book.getIsbn();
+                if(inputISBN.equals(isbn)) {
+                    exist = true;
+                    break;
+                }
+            }
+
+            if(exist) {
+                ToastMessage.showError(getContext(), "Already the book info that has same ISBN exists", Toast.LENGTH_SHORT);
+                return;
+            }
+
             dismiss();
             listener.setSelectedValue(inputISBN);
         } else {
